@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-November/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20%5Brti1516e%5D%20Bug%20in%20BasicDataElements%20decoding&In-Reply-To=%3C3995408.ZLLOUO2ItW%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000045.html">
+   <LINK REL="Next"  HREF="000047.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20%5Brti1516e%5D%20Bug%20in%20BasicDataElements%20decoding&In-Reply-To=%3C3995408.ZLLOUO2ItW%40notebook%3E"
+       TITLE="[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Wed Nov 27 09:01:57 CET 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000045.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+        <LI>Next message: <A HREF="000047.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#46">[ date ]</a>
+              <a href="thread.html#46">[ thread ]</a>
+              <a href="subject.html#46">[ subject ]</a>
+              <a href="author.html#46">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Tuesday, November 26, 2013 21:17:18 J&#233;r&#233;my Coulon wrote:
+&gt;<i> But I am a bit concerned about your usage of fixed width integer types
+</I>&gt;<i> (|uint8_t, ||uint32_t, ...).
+</I>&gt;<i> These types have been introduced in C++11.
+</I>&gt;<i> Few compilers support this standard.
+</I>&gt;<i> What are your goals in terms of multi-platform support ?
+</I>&gt;<i> I need to use OpenRTI in a project using older compilers.
+</I>&gt;<i> Visual Studio 2010 must be supported.|
+</I>These types are available in plain c for a longer time.
+So this is the reason I do reference them without the std:: qualifier, actually 
+in the file in question I do have Types.h included which cares exactly for this 
+issue and puts appropriate types into the OpenRTI namespace.
+Definitely, VS2010 should work! Even older ones.
+Even if I did not find the time to double check each windows compiler variant 
+yesterday.
+So, you are telling me that it does no longer compile with older Windows 
+compilers?
+
+Actually, the implementation basically works even on older *NIX variants and 
+before releases I test on different windows flavours including your variant, 
+linux variants back to redhat enterprise 4, solaris 10 intel and sparc and at 
+the time I still had a HP-PA risc machine in access it worked even there and I 
+still hope that I did not manage to break this. Macos is regularily tested by 
+somebody different and somebody ported to android some time ago. Even if I have 
+to admit that I do not test this and thus am not sure if it still works.
+One test on the other end includes c++11 on gcc to make sure that the backend 
+libraries also compile with more modern compilers. 
+
+So, I *do* care for portability. And I do consider this to be a critical 
+feature for an RTI implementation - therefore no boost!
+If your favourite os is missing, then tell me!
+
+&gt;<i> I were afraid you wouldn't like Boost.
+</I>&gt;<i> I'm a big fan actually. :-)
+</I>Well, I also use boost for some stuff where portability is not such a huge 
+concern.
+
+&gt;<i> I personally consider Boost as a C++ pre-standard and it supports a very
+</I>&gt;<i> wide range of platforms and compilers.
+</I>&gt;<i> In addition, Boost makes some features of the latest C++ standard
+</I>&gt;<i> available to older compilers.
+</I>&gt;<i> That's the case for fixed width integer types (boost::uint8_t,
+</I>&gt;<i> boost::uint32_t, ...).
+</I>See the above. It's about easy to get that right!
+
+&gt;<i>  From my point of view, for an OpenSource RTI implementation,
+</I>&gt;<i> multi-platform support is more important than depending on a 3rd party
+</I>&gt;<i> library.
+</I>Really, I already had cases where boost did not allow me to compile with the 
+compiler of my choice. At that time I decided not to use boost in anything 
+that I want to have portable. Also wrt this, boost is highly version sensitive 
+with their usage. That means what do you do when your library A needs boost 
+somehow older and your application for some reason the newest released 
+version. The library like does not compile with the new variant that your 
+application needs. So your only chance is to try to isolate the somehow 
+overlapping symbols by their visibility. But this is not exactly easy to get 
+and only possible if there is no common api that use both boost. Which is 
+likely since you use boost. Then you are blocked out with one use of boost.
+
+Seriously I am looking forward that I can count on c++11. But for the 
+portability reason this will be some years until then. But for most things I 
+miss there I *do* already have a portable solution so why should I introduce 
+any new dependency?
+An other reason that I often observe with boost usage is just syntactic 
+shugar, which is no reason to pick up a dependency.
+
+Realize, software is *not* there for the programmer it is there to solve a 
+problem. And If I can solve this problem with simpler means I will not use the 
+more complex one just for fun.
+This does not just help for dependencies, that very often helps also for 
+readability. And very often also for efficiency.
+For readability I am not talking about you reading your own code where you are 
+used to the style even if you don't remember the time you writ this piece of 
+code. I am talking about very different people that may need to understand this 
+code and that may not even be that experienced with boost. So every c/c++ 
+programmer understands a for loop, but not everybody out there knows 
+BOOST_FOREACH. So, the only advantage of that macro is to type mostly less 
+then ten fewer characters but the backside is that it's only claimed to be 
+more readable to frequent boost users and less readable to everybody else.
+For this one don't tell me that the evaluation of the end iterator is pulled 
+out of the loop in these macros. I consider this just basic c++ knowledge that 
+you have thought about this problem. And that you also know where it is 
+sensible to care for that. I could easily go into more detail if you want...
+
+&gt;<i> But anyway you are the boss! Do as you wish.
+</I>I *do* want to be portable and I do not see something critical that I cannot 
+just get within a few minutes of thinking that I urgently need and that boost 
+delivers.
+
+&gt;<i> &gt; Please use spaces for indenting. Tabs are editor dependent and if you do
+</I>&gt;<i> &gt; not want to see screwed up indenting in some editors the only way to
+</I>&gt;<i> &gt; guarantee indenting not going wild over time in an open source project is
+</I>&gt;<i> &gt; to avoid tabs completely. OpenRTI currently uses 2 spaces for and
+</I>&gt;<i> &gt; indenting level.
+</I>&gt;<i> My apologies. Bad Visual Studio habits.
+</I>&gt;<i> I'll try to pay more attention to that in the future.
+</I>Sounds like nitpicking form my side, but its in the end years or experience 
+with that kind of stuff. Even if you now deliver consistent tab indented code, 
+I already see the day where somebody with a different editor loads this and 
+puts lines with spaces in between. Then we find at least one editor out there 
+where it looks bad.
+
+Sure, I should document that somewhere public.
+
+But thanks in any case!
+
+Greetings
+
+Mathias
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000045.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+	<LI>Next message: <A HREF="000047.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#46">[ date ]</a>
+              <a href="thread.html#46">[ thread ]</a>
+              <a href="subject.html#46">[ subject ]</a>
+              <a href="author.html#46">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

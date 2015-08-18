@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] enableTimeRegulation does not work
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2012-December/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20enableTimeRegulation%20does%20not%20work&In-Reply-To=%3CCAJKWyr%2BR_KP0XobkPFyTtcbGhy4VvQ65swNAg09PfFhhHQOD3g%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000001.html">
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] enableTimeRegulation does not work</H1>
+    <B>Usman Awais</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20enableTimeRegulation%20does%20not%20work&In-Reply-To=%3CCAJKWyr%2BR_KP0XobkPFyTtcbGhy4VvQ65swNAg09PfFhhHQOD3g%40mail.gmail.com%3E"
+       TITLE="[Openrti-devel] enableTimeRegulation does not work">usman.awais at gmail.com
+       </A><BR>
+    <I>Thu Dec 20 15:20:18 CET 2012</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000001.html">[Openrti-devel] Using OpenRTI
+</A></li>
+        <LI>Next message: <A HREF="000003.html">[Openrti-devel] enableTimeRegulation does not work
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I am using OpenRTI in network protocol. I have one federate executing
+in a separate processes. I am executing the commands in this order
+
+- join federation
+- enable time regulation
+- enable time constrained
+- publish &amp; subscribe
+- wait for synchronization
+- register instance
+- wait for second synch point
+- run
+
+If I instantiate only one federate then here is no problem.
+
+If I instantiate more than one federate (same code) then at the point
+of &quot;enableTimeRegulation&quot; it gets hanged, because after repeated calls
+to &quot;evokeCallback&quot; the federate callback function
+&quot;timeRegulationEnabled&quot; is not being called. Please note that
+&quot;timeConstrainedEnabled&quot; callback is being called properly. I have
+tried to change the order but it does not change anything.
+
+Same code works if there is only one federate with same configuration.
+Is this a bug or am I doing something wrong?
+
+here is the relative portion of the code
+
+        self.rtiaReference.setLogicalTimeFactory(&quot;HLAfloat64Time&quot;)
+        t = self.rtiaReference.queryLogicalTime()
+
+
+        self.rtiaReference.enableTimeRegulation(t)
+
+
+        while self.timeState &amp; TimeState.Regulated == 0:
+            self.rtiaReference.evokeCallback(t)
+
+        self.rtiaReference.enableTimeConstrained()
+
+        while self.timeState &amp; TimeState.Constrained == 0 :
+            self.rtiaReference.evokeCallback(t)
+
+
+
+Regards,
+-- 
+Awais
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000001.html">[Openrti-devel] Using OpenRTI
+</A></li>
+	<LI>Next message: <A HREF="000003.html">[Openrti-devel] enableTimeRegulation does not work
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-November/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20%5Brti1516e%5D%20Bug%20in%20BasicDataElements%20decoding&In-Reply-To=%3C529501CE.3030904%40free.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000044.html">
+   <LINK REL="Next"  HREF="000046.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding</H1>
+    <B>J&#233;r&#233;my Coulon</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20%5Brti1516e%5D%20Bug%20in%20BasicDataElements%20decoding&In-Reply-To=%3C529501CE.3030904%40free.fr%3E"
+       TITLE="[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding">jeremy.coulon at free.fr
+       </A><BR>
+    <I>Tue Nov 26 21:17:18 CET 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000044.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+        <LI>Next message: <A HREF="000046.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#45">[ date ]</a>
+              <a href="thread.html#45">[ thread ]</a>
+              <a href="subject.html#45">[ subject ]</a>
+              <a href="author.html#45">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+Le 26/11/2013 20:22, Mathias Fr&#246;hlich a &#233;crit :
+&gt;<i>
+</I>&gt;<i> I went ahead and committed a slightly more paranoid version of your fix to the
+</I>&gt;<i> OpenRTI-0.4 release branch.
+</I>
+Thanks.
+I will try it first time tomorrow.
+But I am a bit concerned about your usage of fixed width integer types 
+(|uint8_t, ||uint32_t, ...).
+These types have been introduced in C++11.
+Few compilers support this standard.
+What are your goals in terms of multi-platform support ?
+I need to use OpenRTI in a project using older compilers.
+Visual Studio 2010 must be supported.|
+
+&gt;<i> I am also glad to find the second part with the tests!
+</I>&gt;<i>
+</I>&gt;<i> Even if I have some issues with this part:
+</I>&gt;<i>
+</I>&gt;<i> The test uses boost. OpenRTI does not need boost and I do not intent to
+</I>&gt;<i> require boost. Even not in a test. I do want to have a bare minimum of
+</I>&gt;<i> requirements for all of OpenRTI.
+</I>&gt;<i> For the random numbers either use the libc variants which are about sufficient
+</I>&gt;<i> or use the OpenRTI::Rand class recently committed to the master version. Since
+</I>&gt;<i> I would only commit the tests to the development mainline anyway, this should
+</I>&gt;<i> be sufficient.
+</I>I were afraid you wouldn't like Boost.
+I'm a big fan actually. :-)
+I personally consider Boost as a C++ pre-standard and it supports a very 
+wide range of platforms and compilers.
+In addition, Boost makes some features of the latest C++ standard 
+available to older compilers.
+That's the case for fixed width integer types (boost::uint8_t, 
+boost::uint32_t, ...).
+ From my point of view, for an OpenSource RTI implementation,
+multi-platform support is more important than depending on a 3rd party 
+library.
+But anyway you are the boss! Do as you wish.
+
+&gt;<i> Please use spaces for indenting. Tabs are editor dependent and if you do not
+</I>&gt;<i> want to see screwed up indenting in some editors the only way to guarantee
+</I>&gt;<i> indenting not going wild over time in an open source project is to avoid tabs
+</I>&gt;<i> completely. OpenRTI currently uses 2 spaces for and indenting level.
+</I>My apologies. Bad Visual Studio habits.
+I'll try to pay more attention to that in the future.
+&gt;<i> The wchar_t HLAunicodeString does not work on linux where
+</I>&gt;<i>    sizeof(wchar_t) == 4.
+</I>&gt;<i> Consequently the 32 bits wchar_t values do not fit into a HLAunicodeChar value
+</I>&gt;<i> and are consequently not restored correctly after the encode/decode cycle.
+</I>&gt;<i>
+</I>&gt;<i> And finally it would be great if the test is added to the list of of executed
+</I>&gt;<i> tests of the ctest target using the ADD_TEST cmake macro.
+</I>&gt;<i>
+</I>&gt;<i> Greetings
+</I>&gt;<i>
+</I>&gt;<i> Mathias
+</I>
+Greetings
+Jeremy
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openrti-devel/attachments/20131126/bace9ff7/attachment.html">https://lists.berlios.de/pipermail/openrti-devel/attachments/20131126/bace9ff7/attachment.html</A>&gt;
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000044.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+	<LI>Next message: <A HREF="000046.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#45">[ date ]</a>
+              <a href="thread.html#45">[ thread ]</a>
+              <a href="subject.html#45">[ subject ]</a>
+              <a href="author.html#45">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

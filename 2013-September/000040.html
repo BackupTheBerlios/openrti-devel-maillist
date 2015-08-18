@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Massive updates of attributes over network
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-September/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Massive%20updates%20of%20attributes%20over%20network&In-Reply-To=%3C2671530.YFNdRhEaeA%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000039.html">
+   <LINK REL="Next"  HREF="000041.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Massive updates of attributes over network</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Massive%20updates%20of%20attributes%20over%20network&In-Reply-To=%3C2671530.YFNdRhEaeA%40notebook%3E"
+       TITLE="[Openrti-devel] Massive updates of attributes over network">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Sun Sep 22 10:48:42 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000039.html">[Openrti-devel] Massive updates of attributes over network
+</A></li>
+        <LI>Next message: <A HREF="000041.html">[Openrti-devel] Bug in HLAfixedRecord.cpp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#40">[ date ]</a>
+              <a href="thread.html#40">[ thread ]</a>
+              <a href="subject.html#40">[ subject ]</a>
+              <a href="author.html#40">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Good morning,
+
+On Thursday, September 19, 2013 18:42:04 Grigoriev Roman wrote:
+&gt;<i> Come across to some situation.
+</I>&gt;<i> I have federate A and B.
+</I>&gt;<i> fed A resister 5000 objects and B subscribed to attribute updates.
+</I>&gt;<i> A and B timeregulated and timeconstrained.
+</I>&gt;<i> for exapmple at time 5.0 sec A update 5000 objects with 10 attibutes at time
+</I>&gt;<i> 5.0 and advance time. B got updates at 60 seconds due to network latency,
+</I>&gt;<i> but moves time to 5 or 6 second and so on. Are there some tools in RTI that
+</I>&gt;<i> fed A know that last of 5000 attributes delivered to subscribers and then
+</I>&gt;<i> advancetime. Because fed B get data from A, calculate some and sends to A
+</I>&gt;<i> result of calculation and result should be delivered before next time step.
+</I>
+I am sorry, but you are hard to understand, so I do not exactly understand 
+your problem.
+
+In general, time management seems to solve this kind of problem. If you 
+require message to be delivered the appropriate interaction class and 
+attribute needs to be reliable instead of best effort. Also you need to make 
+sure that the receiving federate is subscribed once you send these messages. 
+Else you get a race between subscription and sending these messages and not 
+receive the first ones. I think you correctly describe the way of information 
+from A-&gt;B. If you need the back channel, the recommended way to get this is to 
+make both time regulating and constrained, then you get the two way time stamp 
+based synchronization.
+
+Other than that I think that a solution to your problem depends more on what 
+you are trying to achieve at a higher level?
+
+Greetings
+
+Mathias
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000039.html">[Openrti-devel] Massive updates of attributes over network
+</A></li>
+	<LI>Next message: <A HREF="000041.html">[Openrti-devel] Bug in HLAfixedRecord.cpp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#40">[ date ]</a>
+              <a href="thread.html#40">[ thread ]</a>
+              <a href="subject.html#40">[ subject ]</a>
+              <a href="author.html#40">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

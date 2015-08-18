@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Delete Object Instance
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-March/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Delete%20Object%20Instance&In-Reply-To=%3C20130319152546.b52cc1769b7645ca878c0891%40gosniias.ru%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000010.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Delete Object Instance</H1>
+    <B>Grigoriev Roman</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Delete%20Object%20Instance&In-Reply-To=%3C20130319152546.b52cc1769b7645ca878c0891%40gosniias.ru%3E"
+       TITLE="[Openrti-devel] Delete Object Instance">grigoriev at gosniias.ru
+       </A><BR>
+    <I>Tue Mar 19 12:25:46 CET 2013</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000010.html">[Openrti-devel] Delete Object Instance
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Good Day!
+Using openRTI from git I try to create and delete object instances
+
+so I have rtiAmbassdor rtiamb and FederateAmbassador fedamb
+Create object instance
+1. Reserve name
+2. Get from fedamb that name reserved
+3. Create objectinstance with name.
+                        fedamb-&gt;isNameReserved=false;
+                        reserveObjectName(Res[2].c_str());
+                        while( fedamb-&gt;isNameReserved == false )
+                        {
+                            rtiamb-&gt;evokeCallback(12.0);
+                        }
+                        // wcout&lt;&lt;L&quot;find object&quot;&lt;&lt;endl;
+                        ObjectInstanceHandle objectInstanceHandle = 
+			rtiamb-&gt;registerObjectInstance( rtiamb-&gt;getObjectClassHandle(L&quot;Entity&quot;),L&quot;name&quot;);
+
+try to delete object instance
+ 				objectInstanceHandle =rtiamb-&gt;getObjectInstanceHandle(L&quot;name&quot;);
+                                fedamb-&gt;isRemoved=false;
+                                rtiamb-&gt;deleteObjectInstance(objectInstanceHandle, toVariableLengthData(&quot;&quot;));
+                                while( fedamb-&gt;isRemoved == false )
+                                {
+                                    wcout&lt;&lt;L&quot;remove object instance=&quot;&lt;&lt; fedamb-&gt;isRemoved&lt;&lt;endl;
+                                    rtiamb-&gt;evokeCallback(1.0);
+                                }
+problem that fedamb-&gt;isRemoved constantly equals false after deletion so I have endless loop
+on the receiver federate I have warning from removeObjectInstance callback but sender federate doesn't set fedamb-&gt;isRemoved to true. My goal is know when objectInstance removed from federation. Or in HLA terms that's situation is ok and if one federate create object instance and after that destroyed it there is no acknowledgment from federate ambassador that objectdeleted?
+Thanx in advance
+Bye  
+
+P.S.here is callbacks
+
+void
+ExampleFedAmb::objectInstanceNameReservationSucceeded(std::wstring const &amp;
+                                                      theObjectInstanceName)
+throw (UnknownName,
+       FederateInternalError)
+{
+    isNameReserved=true;
+    wcout &lt;&lt; L&quot;Reservation done &quot; &lt;&lt; theObjectInstanceName &lt;&lt; endl;
+}
+
+void
+ExampleFedAmb::objectInstanceNameReservationFailed(std::wstring const &amp;
+                                                   theObjectInstanceName)
+throw (UnknownName,
+       FederateInternalError)
+{
+    isNameReserved=false;
+}
+
+void ExampleFedAmb::removeObjectInstance( ObjectInstanceHandle theObject, 
+                                          VariableLengthData const &amp;theUserSuppliedTag,
+                                          OrderType sentOrder)
+throw (ObjectInstanceNotKnown, FederateInternalError )
+{
+    this-&gt;isRemoved=true;
+    wcout &lt;&lt; L&quot;-&gt;&gt;&gt;&gt;&gt;Object Removed: handle=&quot; &lt;&lt; theObject &lt;&lt; endl;
+
+}
+
+
+-- 
+Grigoriev Roman &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openrti-devel">grigoriev at gosniias.ru</A>&gt;
+
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000010.html">[Openrti-devel] Delete Object Instance
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

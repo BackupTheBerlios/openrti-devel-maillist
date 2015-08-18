@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] registerFederationSynchronizationPoint
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-March/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20registerFederationSynchronizationPoint&In-Reply-To=%3C20130322120001.430b19f887a4f38ddc17d3fd%40gosniias.ru%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000012.html">
+   <LINK REL="Next"  HREF="000014.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] registerFederationSynchronizationPoint</H1>
+    <B>Grigoriev Roman</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20registerFederationSynchronizationPoint&In-Reply-To=%3C20130322120001.430b19f887a4f38ddc17d3fd%40gosniias.ru%3E"
+       TITLE="[Openrti-devel] registerFederationSynchronizationPoint">grigoriev at gosniias.ru
+       </A><BR>
+    <I>Fri Mar 22 09:00:01 CET 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000012.html">[Openrti-devel] Delete Object Instance
+</A></li>
+        <LI>Next message: <A HREF="000014.html">[Openrti-devel] registerFederationSynchronizationPoint
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Good day!
+I try to use synchronization point to my federation and want to use it with FederateHandleSet.
+For example I have one sender and one receiver. I use 
+rti1516::FederateHandle _federateHandle = rtiamb-&gt;joinFederationExecution( convertStringToWstring(federateName),
+                                     convertStringToWstring(&quot;ExampleFederation&quot;), *fedamb );
+_FederateHandleSet.insert(_federateHandle);
+ rtiamb-&gt;registerFederationSynchronizationPoint(
+                convertStringToWstring(READY_TO_RUN), toVariableLengthData(&quot;&quot;),_FederateHandleSet);
+but can't achive synchronization.
+if I use 
+rtiamb-&gt;registerFederationSynchronizationPoint(
+                convertStringToWstring(READY_TO_RUN), toVariableLengthData(&quot;&quot;));
+I've got synchronization point to all federates.
+Could you please give me advice how to discover federate and use synchronization point to some of them.
+Thanx in advance
+Bye
+-- 
+Grigoriev Roman &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openrti-devel">grigoriev at gosniias.ru</A>&gt;
+
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000012.html">[Openrti-devel] Delete Object Instance
+</A></li>
+	<LI>Next message: <A HREF="000014.html">[Openrti-devel] registerFederationSynchronizationPoint
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

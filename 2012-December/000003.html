@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] enableTimeRegulation does not work
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2012-December/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20enableTimeRegulation%20does%20not%20work&In-Reply-To=%3C2725512.xUHcsgPS6t%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000002.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] enableTimeRegulation does not work</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20enableTimeRegulation%20does%20not%20work&In-Reply-To=%3C2725512.xUHcsgPS6t%40notebook%3E"
+       TITLE="[Openrti-devel] enableTimeRegulation does not work">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Sat Dec 22 19:55:48 CET 2012</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000002.html">[Openrti-devel] enableTimeRegulation does not work
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Thursday, December 20, 2012 15:20:18 Usman Awais wrote:
+&gt;<i> I am using OpenRTI in network protocol. I have one federate executing
+</I>&gt;<i> in a separate processes. I am executing the commands in this order
+</I>&gt;<i> 
+</I>&gt;<i> - join federation
+</I>&gt;<i> - enable time regulation
+</I>&gt;<i> - enable time constrained
+</I>&gt;<i> - publish &amp; subscribe
+</I>&gt;<i> - wait for synchronization
+</I>&gt;<i> - register instance
+</I>&gt;<i> - wait for second synch point
+</I>&gt;<i> - run
+</I>&gt;<i> 
+</I>&gt;<i> If I instantiate only one federate then here is no problem.
+</I>&gt;<i> 
+</I>&gt;<i> If I instantiate more than one federate (same code) then at the point
+</I>&gt;<i> of &quot;enableTimeRegulation&quot; it gets hanged, because after repeated calls
+</I>&gt;<i> to &quot;evokeCallback&quot; the federate callback function
+</I>&gt;<i> &quot;timeRegulationEnabled&quot; is not being called. Please note that
+</I>&gt;<i> &quot;timeConstrainedEnabled&quot; callback is being called properly. I have
+</I>&gt;<i> tried to change the order but it does not change anything.
+</I>&gt;<i> 
+</I>&gt;<i> Same code works if there is only one federate with same configuration.
+</I>&gt;<i> Is this a bug or am I doing something wrong?
+</I>I think you run on a well know problem with a federate willing to get time 
+regulating needs an information that is currently handed over by other 
+federates in internal message processing. That is if the other federates are 
+in one of the evokeCallback variants the problem does not show up.
+
+I have an idea to change this, but did not find the time to implement that idea 
+yet. May be this works out these days.
+
+Merry Christmas
+
+Mathias
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000002.html">[Openrti-devel] enableTimeRegulation does not work
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

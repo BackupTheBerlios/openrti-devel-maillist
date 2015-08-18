@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Avoid installing file to an Absolute location
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-December/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Avoid%20installing%20file%20to%20an%20Absolute%20location&In-Reply-To=%3CCAPASGLqBF54GGXiyFujEEH44d4KjmMRUkKVodg9-H_WCTzCULQ%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000052.html">
+   <LINK REL="Next"  HREF="000055.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Avoid installing file to an Absolute location</H1>
+    <B>Eric Noulard</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Avoid%20installing%20file%20to%20an%20Absolute%20location&In-Reply-To=%3CCAPASGLqBF54GGXiyFujEEH44d4KjmMRUkKVodg9-H_WCTzCULQ%40mail.gmail.com%3E"
+       TITLE="[Openrti-devel] Avoid installing file to an Absolute location">eric.noulard at gmail.com
+       </A><BR>
+    <I>Tue Dec 17 09:53:14 CET 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000052.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+        <LI>Next message: <A HREF="000055.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#54">[ date ]</a>
+              <a href="thread.html#54">[ thread ]</a>
+              <a href="subject.html#54">[ subject ]</a>
+              <a href="author.html#54">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>2013/12/17 Mathias Fr&#246;hlich &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openrti-devel">Mathias.Froehlich at gmx.net</A>&gt;:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> Sorry for the long delay.
+</I>
+
+No problem no hurry.
+
+&gt;<i>
+</I>&gt;<i> On Friday, December 13, 2013 16:35:56 Eric Noulard wrote:
+</I>&gt;&gt;<i> I'm giving OpenRTI a try and while testing local install
+</I>&gt;&gt;<i> the HLAstandardMIM.xml was installed with absolute location.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Unless it is the intended behaviour I suggest using a relative location.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Patch proposal is attached.
+</I>&gt;<i>
+</I>&gt;<i> I don't think this change works.
+</I>&gt;<i> The same variables content is used in the rti1516e backend library to later
+</I>&gt;<i> find the xml file in question. See src/rti1516e/RTIambassadorImplementation.cpp.
+</I>&gt;<i> So, such a change needs to adapt the path in the ambassador implementation to
+</I>&gt;<i> make it find the xml file at runtime.
+</I>
+I think the usage of OPENRTI_DATAROOTDIR which contains an absolute path
+won't always be robust because OpenRTI may  be installed at varying location
+from the one specified in OPENRTI_DATAROOTDIR during compilation.
+(e.g. if one use DESTDIR for example)
+
+I would suggest to find another way to seek for relative path.
+Pretty much like $ORIGIN does for RPATH.
+
+&gt;<i>
+</I>&gt;<i> Anyway, I tried different variants of CMAKE_INSTALL_PREFIX and installs with
+</I>&gt;<i> DESTDIR set on linux with cmake 2.8.12.1.
+</I>&gt;<i>
+</I>&gt;<i> 1. Absolute CMAKE_INSTALL_PREFIX, no DESTDIR
+</I>&gt;<i>
+</I>&gt;<i> cmake -DCMAKE_INSTALL_PREFIX=/tmp/abs &lt;src&gt;
+</I>&gt;<i> make
+</I>&gt;<i> make install
+</I>&gt;<i> [...]
+</I>&gt;<i> -- Installing: /tmp/abs/share/OpenRTI/rti1516e/HLAstandardMIM.xml
+</I>&gt;<i>
+</I>&gt;<i> 2. Absolute CMAKE_INSTALL_PREFIX, absolute DESTDIR
+</I>
+[...]
+
+&gt;<i> Which is all kind of expected.
+</I>
+Yes right.
+
+&gt;<i>
+</I>&gt;<i> So, what kind of use case do you need?
+</I>
+My testcase was the 1. and ... the error comes from the CMake cache handling.
+
+I did:
+
+cmake -G Ninja &lt;src&gt;
+ninja
+cmake -DCMAKE_INSTALL_PREFIX=/home/erk/local/OpenRTI .
+ninja install
+--&gt;
+CMake Error at src/rti1516e/cmake_install.cmake:161 (file):
+  file cannot create directory: /usr/local/share/OpenRTI/rti1516e.  Maybe
+  need administrative privileges.
+Call Stack (most recent call first):
+  src/cmake_install.cmake:41 (include)
+  cmake_install.cmake:38 (include)
+
+i.e. if CMAKE_INSTALL_PREFIX is changed in a second run of CMake
+then OPENRTI_DATAROOTDIR did not get update.
+
+This is due, to the fact that OPENRTI_DATAROOTDIR is defined as a CACHE var:
+SET(OPENRTI_DATAROOTDIR &quot;${CMAKE_INSTALL_FULL_DATAROOTDIR}/OpenRTI&quot;
+CACHE PATH &quot;Path where OpenRTI puts runtime required paths.&quot;)
+
+So even after I changed CMAKE_INSTALL_PREFIX the initial default value
+stays in cache:
+
+$ grep &quot;/usr/local&quot; CMakeCache.txt
+OPENRTI_DATAROOTDIR:PATH=/usr/local/share/OpenRTI
+
+
+-- 
+Erk
+L'&#233;lection n'est pas la d&#233;mocratie -- <A HREF="http://www.le-message.org">http://www.le-message.org</A>
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000052.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+	<LI>Next message: <A HREF="000055.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#54">[ date ]</a>
+              <a href="thread.html#54">[ thread ]</a>
+              <a href="subject.html#54">[ subject ]</a>
+              <a href="author.html#54">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] registerFederationSynchronizationPoint
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-March/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20registerFederationSynchronizationPoint&In-Reply-To=%3C1375501.A8scL8EUMS%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000013.html">
+   <LINK REL="Next"  HREF="000015.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] registerFederationSynchronizationPoint</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20registerFederationSynchronizationPoint&In-Reply-To=%3C1375501.A8scL8EUMS%40notebook%3E"
+       TITLE="[Openrti-devel] registerFederationSynchronizationPoint">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Mon Mar 25 06:45:07 CET 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000013.html">[Openrti-devel] registerFederationSynchronizationPoint
+</A></li>
+        <LI>Next message: <A HREF="000015.html">[Openrti-devel] registerFederationSynchronizationPoint
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Friday, March 22, 2013 12:00:01 Grigoriev Roman wrote:
+&gt;<i> I try to use synchronization point to my federation and want to use it with
+</I>&gt;<i> FederateHandleSet. For example I have one sender and one receiver. I use
+</I>&gt;<i> rti1516::FederateHandle _federateHandle = rtiamb-&gt;joinFederationExecution(
+</I>&gt;<i> convertStringToWstring(federateName),
+</I>&gt;<i> convertStringToWstring(&quot;ExampleFederation&quot;), *fedamb );
+</I>&gt;<i> _FederateHandleSet.insert(_federateHandle);
+</I>&gt;<i>  rtiamb-&gt;registerFederationSynchronizationPoint(
+</I>&gt;<i>                 convertStringToWstring(READY_TO_RUN),
+</I>&gt;<i> toVariableLengthData(&quot;&quot;),_FederateHandleSet); but can't achive
+</I>&gt;<i> synchronization.
+</I>&gt;<i> if I use
+</I>&gt;<i> rtiamb-&gt;registerFederationSynchronizationPoint(
+</I>&gt;<i>                 convertStringToWstring(READY_TO_RUN),
+</I>&gt;<i> toVariableLengthData(&quot;&quot;)); I've got synchronization point to all federates.
+</I>&gt;<i> Could you please give me advice how to discover federate and use
+</I>&gt;<i> synchronization point to some of them. Thanx in advance
+</I>
+Does _federateHandleSet only contain the own federate handle like sketched 
+above?
+
+Discovering federates is not possible.
+If you know the federates names you can query their handles, but you can only 
+query them if they are already joined and your federate technically knows 
+about them.
+If I had to do this, I would synchonize to all federates at the beginning, 
+then collect the federate handles and synchronize later on the known ones.
+
+What problem do you try to solve?
+
+Greetings
+
+Mathias
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000013.html">[Openrti-devel] registerFederationSynchronizationPoint
+</A></li>
+	<LI>Next message: <A HREF="000015.html">[Openrti-devel] registerFederationSynchronizationPoint
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

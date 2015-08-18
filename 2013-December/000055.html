@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Avoid installing file to an Absolute location
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-December/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Avoid%20installing%20file%20to%20an%20Absolute%20location&In-Reply-To=%3C6337125.WTJl8lE9X6%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000054.html">
+   <LINK REL="Next"  HREF="000056.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Avoid installing file to an Absolute location</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Avoid%20installing%20file%20to%20an%20Absolute%20location&In-Reply-To=%3C6337125.WTJl8lE9X6%40notebook%3E"
+       TITLE="[Openrti-devel] Avoid installing file to an Absolute location">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Wed Dec 18 08:20:08 CET 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000054.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+        <LI>Next message: <A HREF="000056.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Tuesday, December 17, 2013 09:53:14 Eric Noulard wrote:
+&gt;<i> I think the usage of OPENRTI_DATAROOTDIR which contains an absolute path
+</I>&gt;<i> won't always be robust because OpenRTI may  be installed at varying location
+</I>&gt;<i> from the one specified in OPENRTI_DATAROOTDIR during compilation.
+</I>&gt;<i> (e.g. if one use DESTDIR for example)
+</I>&gt;<i> 
+</I>&gt;<i> I would suggest to find another way to seek for relative path.
+</I>&gt;<i> Pretty much like $ORIGIN does for RPATH.
+</I>Well, this is the whole point of all the prefix directories that you find in 
+about any non trivial software out there.
+
+But I agree that it would be nice to have this. You may want to look at the 
+patch attached to <A HREF="http://bugs.python.org/issue18309">http://bugs.python.org/issue18309</A> which tries to implement 
+this for python.
+Anyway the code used in this python change is not available on any 
+architecture so, the fallback should be looking up that path in the build time 
+configured prefix.
+If not found at this point, you could fall back to a blob just baken hard into 
+the librti1516e. That would work in any case. Since this file is just taken 
+without modification from the standard and since this described scheme allows 
+overriding it, having a last resort immutable baken into the library should be 
+ok.
+
+And no, putting a relative path into the rti1516e binary without something 
+like the python patch to find the mom file as suggested converts OpenRTI from 
+'just works if installed correctly' to 'only works if your application has a 
+certain current working directory set'. Which would be a giant step back for 
+usability.
+
+For your comment on DESTDIR above, you might want to understand how this is 
+supposed to be used. DESTDIR is for software installer packagers. Almost any 
+(sensible?) software using cmake or autotools use the install prefix to wire up 
+the right install paths and most often compile in paths that point to this 
+directories. DESTDIR is set by rpmbuild for example to configure in the path 
+where the package gets unpacked when installing the rpm, but install this stuff 
+for packaging into a temporary root directory. Given that you might realize 
+that allmost all software packages that you can find in a prepacked rpm for use 
+with a linux distribution behaves that way - So, I assume it is wise to 
+support this somehow common pattern :-)
+So, if you wildly set DESTDIR for your handmade installation process your 
+probably lost with a lot of software out there ...
+
+&gt;<i> i.e. if CMAKE_INSTALL_PREFIX is changed in a second run of CMake
+</I>&gt;<i> then OPENRTI_DATAROOTDIR did not get update.
+</I>&gt;<i> 
+</I>&gt;<i> This is due, to the fact that OPENRTI_DATAROOTDIR is defined as a CACHE var:
+</I>&gt;<i> SET(OPENRTI_DATAROOTDIR &quot;${CMAKE_INSTALL_FULL_DATAROOTDIR}/OpenRTI&quot; CACHE
+</I>&gt;<i> PATH &quot;Path where OpenRTI puts runtime required paths.&quot;)
+</I>&gt;<i> 
+</I>&gt;<i> So even after I changed CMAKE_INSTALL_PREFIX the initial default value
+</I>&gt;<i> stays in cache:
+</I>&gt;<i> 
+</I>&gt;<i> $ grep &quot;/usr/local&quot; CMakeCache.txt
+</I>&gt;<i> OPENRTI_DATAROOTDIR:PATH=/usr/local/share/OpenRTI
+</I>Ok, I see, so I have removed OPENRTI_DATAROOTDIR to be an option and rather 
+than that just be hard set by the install prefix.
+Having this a seperate option seems to be counter productive.
+
+I personally work mostly with scripts and these obviously get everything as 
+intended from their first call. So I never run into this probably very common 
+trap for interactive cmake use.
+Do I have more of these spread over the build system?
+If so, let me know.
+
+Thanks for pointing this out.
+
+Greetings
+
+Mathias
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000054.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+	<LI>Next message: <A HREF="000056.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

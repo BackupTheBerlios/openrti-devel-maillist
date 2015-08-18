@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Invalid Federate Handle received
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-August/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Invalid%20Federate%20Handle%20received&In-Reply-To=%3C3593747.0jgPzpaDaC%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000030.html">
+   <LINK REL="Next"  HREF="000033.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Invalid Federate Handle received</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Invalid%20Federate%20Handle%20received&In-Reply-To=%3C3593747.0jgPzpaDaC%40notebook%3E"
+       TITLE="[Openrti-devel] Invalid Federate Handle received">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Fri Aug  2 18:16:58 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000030.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+        <LI>Next message: <A HREF="000033.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Friday, August 02, 2013 10:57:09 COULON Jeremy wrote:
+&gt;<i> I am trying to publish an object of type HLAfederate (HLAstandardMIM.xml).
+</I>&gt;<i> Semantics is unclear. I am not sure if the publication of these objects
+</I>&gt;<i> should be automatically handled by OpenRTI or if each federate should
+</I>&gt;<i> publish its own HLAfederate object. What is your interpretation ?
+</I>Well there is part of the hla standard that talks about this managment object 
+model. Only few of the non commertial rtis do implement this.
+And yes to be strictily conformant this should be implemented.
+OpenRTI lacks up to now more basic things than that.
+
+&gt;<i> As OpenRTI does not seem to do it I tried to publish it myself.
+</I>&gt;<i> My problem is when I receive the object and try to decode it, I get an
+</I>&gt;<i> invalid FederateHandle.
+</I>There was a more or less obvious bug in handle decoding.
+A fix for this one is noch checked in into the release branch.
+Does this help?
+
+Greetings
+
+Mathias
+</PRE>
+
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000030.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+	<LI>Next message: <A HREF="000033.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

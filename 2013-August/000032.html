@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] NullFederateAmbassador compilation error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-August/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20NullFederateAmbassador%20compilation%20error&In-Reply-To=%3C3407072.62MoLa9iEo%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000029.html">
+   <LINK REL="Next"  HREF="000030.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] NullFederateAmbassador compilation error</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20NullFederateAmbassador%20compilation%20error&In-Reply-To=%3C3407072.62MoLa9iEo%40notebook%3E"
+       TITLE="[Openrti-devel] NullFederateAmbassador compilation error">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Fri Aug  2 18:17:52 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000029.html">[Openrti-devel] NullFederateAmbassador compilation error
+</A></li>
+        <LI>Next message: <A HREF="000030.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Friday, August 02, 2013 10:53:02 COULON Jeremy wrote:
+&gt;<i> I have a link error in Visual Studio when compiling an example project
+</I>&gt;<i> containing a class that inherit from rti1516e::NullFederateAmbassador.
+</I>&gt;<i> 
+</I>&gt;<i> The easiest way to fix this problem is to create a file
+</I>&gt;<i> NullFederateAmbassador.cpp in your rti1516e project containing only these
+</I>&gt;<i> lines : // This time, the first include is above the api include.
+</I>&gt;<i> // the rti1516/Exception header misses that.
+</I>&gt;<i> #include &lt;iosfwd&gt;
+</I>&gt;<i> #include &lt;RTI/NullFederateAmbassador.h&gt;
+</I>
+Yes, known MSVC problem. Did not think of this here ...
+
+Thanks and chacked in.
+
+Greetings
+
+Mathias
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000029.html">[Openrti-devel] NullFederateAmbassador compilation error
+</A></li>
+	<LI>Next message: <A HREF="000030.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

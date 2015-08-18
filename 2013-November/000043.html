@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-November/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20%5Brti1516e%5D%20Bug%20in%20BasicDataElements%20decoding&In-Reply-To=%3C9142_1385397760_52937E00_9142_4702_1_56A795D572B90B429FFA7D547B6030D30646927661%40THSONEA01CMS06P.one.grp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000044.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding</H1>
+    <B>COULON Jeremy</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20%5Brti1516e%5D%20Bug%20in%20BasicDataElements%20decoding&In-Reply-To=%3C9142_1385397760_52937E00_9142_4702_1_56A795D572B90B429FFA7D547B6030D30646927661%40THSONEA01CMS06P.one.grp%3E"
+       TITLE="[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding">jeremy.coulon at thalesgroup.com
+       </A><BR>
+    <I>Mon Nov 25 17:42:38 CET 2013</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000044.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I'm using OpenRTI from release-0.4 branch.
+I found a bug in BasicDataElements encoding functions.
+Some encoded values are not decoded correctly and produce wrong results.
+This bug occurs for large numbers for all integer and floating point types that are more than 1 Byte long.
+std::string and std::wtring are also affected by the bug.
+
+Please find in attachment one patch that adds a unit test for encoding/decoding of basic data elements ;
+and one patch that fix my problem.
+
+I only tested this fix on VisualStudio 2012 32bits.
+
+Regards,
+Jeremy
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openrti-devel/attachments/20131125/af605597/attachment.html">https://lists.berlios.de/pipermail/openrti-devel/attachments/20131125/af605597/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: 0002-Add-UnitTest-for-rti1516e-encodings.patch
+Type: application/octet-stream
+Size: 6735 bytes
+Desc: 0002-Add-UnitTest-for-rti1516e-encodings.patch
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openrti-devel/attachments/20131125/af605597/attachment.obj">https://lists.berlios.de/pipermail/openrti-devel/attachments/20131125/af605597/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: 0003-Fix-BasicDataElements-decoding.patch
+Type: application/octet-stream
+Size: 9789 bytes
+Desc: 0003-Fix-BasicDataElements-decoding.patch
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openrti-devel/attachments/20131125/af605597/attachment-0001.obj">https://lists.berlios.de/pipermail/openrti-devel/attachments/20131125/af605597/attachment-0001.obj</A>&gt;
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000044.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

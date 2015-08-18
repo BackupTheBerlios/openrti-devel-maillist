@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Invalid Federate Handle received
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-August/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Invalid%20Federate%20Handle%20received&In-Reply-To=%3C2078204.z8h9i50eI7%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000035.html">
+   <LINK REL="Next"  HREF="000037.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Invalid Federate Handle received</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Invalid%20Federate%20Handle%20received&In-Reply-To=%3C2078204.z8h9i50eI7%40notebook%3E"
+       TITLE="[Openrti-devel] Invalid Federate Handle received">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Mon Aug 12 18:32:57 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000035.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+        <LI>Next message: <A HREF="000037.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Thursday, August 08, 2013 21:52:41 J&#233;r&#233;my Coulon wrote:
+&gt;<i> I created an example project on gitorious:
+</I>&gt;<i> <A HREF="https://gitorious.org/hla-example">https://gitorious.org/hla-example</A>
+</I>&gt;<i> Steps to reproduce:
+</I>&gt;<i> $ mkdir source/build
+</I>&gt;<i> $ cd source/build
+</I>&gt;<i> $ cmake ..
+</I>&gt;<i> $ cmake --build .
+</I>&gt;<i> $ /path/to/openrti/rtinode
+</I>&gt;<i> $ ./ba-hla --name fed1 --address localhost --fom ../testfom.xml
+</I>&gt;<i> (fed1 will execute quickly 20 steps of simulation and then sleep 30
+</I>&gt;<i> seconds to give you time to start fed2)
+</I>&gt;<i> $ ./ba-hla --name fed2 --address localhost --fom ../testfom.xml
+</I>Thanks for providing.
+
+&gt;<i> In fed2 console output you cannot see any &quot;Reflection Received:&quot; message.
+</I>&gt;<i> &quot;provideAttributeValueUpdate:&quot; message is not displayed in fed1 or fed2.
+</I>The provideAttributeValueUpdate is not called because you never call 
+RTIambassador::requestAttributeValueUpdate(..).
+Note that the variant for the object class is also not wired up as of now.
+The object instance variant should work. I am heavily relying on this in an 
+other project.
+
+&gt;<i> If you uncomment code for sync point management in
+</I>&gt;<i> ExampleCPPFederate.cpp and start both federates before hitting &quot;Enter&quot;,
+</I>&gt;<i> they both receive &quot;Reflection Received:&quot; callback.
+</I>Ok, there are more such reflect callbacks than the two you used. And yes there 
+is a pending problem with timestamped message delivery which of these 
+callbacks to use. I am currently working on improoving the timestamped queue 
+and the behavior of the ambassador with respect to interaction and attribute 
+order types.
+
+But your example, if you uncomment the user interaction, you will just have 
+one federate that sends the messages (interactions and attribute updates) 
+while the other federate is not yet subscribed for this. Then you sleep for 
+some time while the second federate gets the chance to subscribe. But past 
+that point no messages are sent anymore by the first federate. the only 
+persistent state that the second federate gets then is the existence of the 
+object itself. And that one is correctly propagated to the second federate.
+
+So, I think this is correct. OpenRTI queues messages in the receiving federate 
+for later delivery. Also there is this publish - subscribe model which ensures 
+that the rti does not need to send messages to a federate that is not 
+interrested in these. So, if you send the messages as long as the other 
+federate is not suscribed, it will not receive these.
+
+You may experience a different problem with your application?
+
+&gt;<i> Thanks. Looks like OpenRTI contains pretty much everything I need for now.
+</I>That's good to hear.
+
+Greetings
+
+Mathias
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000035.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+	<LI>Next message: <A HREF="000037.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

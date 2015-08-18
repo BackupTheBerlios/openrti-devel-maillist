@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Delete Object Instance
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-March/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Delete%20Object%20Instance&In-Reply-To=%3C10192442.4xyaTI5PpT%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   <LINK REL="Next"  HREF="000011.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Delete Object Instance</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Delete%20Object%20Instance&In-Reply-To=%3C10192442.4xyaTI5PpT%40notebook%3E"
+       TITLE="[Openrti-devel] Delete Object Instance">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Tue Mar 19 20:46:45 CET 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[Openrti-devel] Delete Object Instance
+</A></li>
+        <LI>Next message: <A HREF="000011.html">[Openrti-devel] Delete Object Instance
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Tuesday, March 19, 2013 15:25:46 Grigoriev Roman wrote:
+&gt;<i> Using openRTI from git I try to create and delete object instances
+</I>&gt;<i> 
+</I>&gt;<i> so I have rtiAmbassdor rtiamb and FederateAmbassador fedamb
+</I>&gt;<i> Create object instance
+</I>&gt;<i> 1. Reserve name
+</I>&gt;<i> 2. Get from fedamb that name reserved
+</I>&gt;<i> 3. Create objectinstance with name.
+</I>&gt;<i>                         fedamb-&gt;isNameReserved=false;
+</I>&gt;<i>                         reserveObjectName(Res[2].c_str());
+</I>&gt;<i>                         while( fedamb-&gt;isNameReserved == false )
+</I>&gt;<i>                         {
+</I>&gt;<i>                             rtiamb-&gt;evokeCallback(12.0);
+</I>&gt;<i>                         }
+</I>&gt;<i>                         // wcout&lt;&lt;L&quot;find object&quot;&lt;&lt;endl;
+</I>&gt;<i>                         ObjectInstanceHandle objectInstanceHandle =
+</I>&gt;<i> 			rtiamb-&gt;registerObjectInstance(
+</I>&gt;<i> rtiamb-&gt;getObjectClassHandle(L&quot;Entity&quot;),L&quot;name&quot;);
+</I>&gt;<i> 
+</I>&gt;<i> try to delete object instance
+</I>&gt;<i>  				objectInstanceHandle 
+</I>=rtiamb-&gt;getObjectInstanceHandle(L&quot;name&quot;);
+&gt;<i>                                 fedamb-&gt;isRemoved=false;
+</I>&gt;<i>                                
+</I>&gt;<i> rtiamb-&gt;deleteObjectInstance(objectInstanceHandle,
+</I>&gt;<i> toVariableLengthData(&quot;&quot;)); while( fedamb-&gt;isRemoved == false ) {
+</I>&gt;<i>                                     wcout&lt;&lt;L&quot;remove object instance=&quot;&lt;&lt;
+</I>&gt;<i> fedamb-&gt;isRemoved&lt;&lt;endl; rtiamb-&gt;evokeCallback(1.0);
+</I>&gt;<i>                                 }
+</I>&gt;<i> problem that fedamb-&gt;isRemoved constantly equals false after deletion so I
+</I>&gt;<i> have endless loop on the receiver federate I have warning from
+</I>&gt;<i> removeObjectInstance callback but sender federate doesn't set
+</I>&gt;<i> fedamb-&gt;isRemoved to true. My goal is know when objectInstance removed 
+</I>from
+&gt;<i> federation. Or in HLA terms that's situation is ok and if one federate
+</I>&gt;<i> create object instance and after that destroyed it there is no
+</I>&gt;<i> acknowledgment from federate ambassador that objectdeleted? Thanx in
+</I>&gt;<i> advance
+</I>
+To my understanding, the federate that deletes the object should not get the 
+removeObjectInstance callback called. I don't recall the paragraph in the standard 
+off hands.
+&gt;<i>From the time the deleteObjectInstance is called this particular federate does no 
+</I>longer know that object. Other federates know this object until the 
+removeObjectInstance callback is called.
+
+If I understand your question correct, you want a synchronous notification when 
+every federate has deleted the object.
+If you need this you might need to send an interaction back from every federate 
+that was alive. Or you might want to play with synchronization points.
+
+Keep in mind that this kind of semantics in effect introduces a round trip between 
+federates, which is carefully avoided in almost all of the rti api calls. So if you 
+need that you might want to think about your problem so that you could 
+implement your initial problem without requiring a round trip.
+
+Greetings
+
+Mathias
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openrti-devel/attachments/20130319/97b0353f/attachment.html">https://lists.berlios.de/pipermail/openrti-devel/attachments/20130319/97b0353f/attachment.html</A>&gt;
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[Openrti-devel] Delete Object Instance
+</A></li>
+	<LI>Next message: <A HREF="000011.html">[Openrti-devel] Delete Object Instance
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Avoid installing file to an Absolute location
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-December/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Avoid%20installing%20file%20to%20an%20Absolute%20location&In-Reply-To=%3C2955183.OyPagnDxZ3%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000055.html">
+   <LINK REL="Next"  HREF="000057.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Avoid installing file to an Absolute location</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Avoid%20installing%20file%20to%20an%20Absolute%20location&In-Reply-To=%3C2955183.OyPagnDxZ3%40notebook%3E"
+       TITLE="[Openrti-devel] Avoid installing file to an Absolute location">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Fri Dec 20 14:46:51 CET 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000055.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+        <LI>Next message: <A HREF="000057.html">[Openrti-devel] Merry Christmas ...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Tuesday, December 17, 2013 09:53:14 Eric Noulard wrote:
+&gt;<i> I would suggest to find another way to seek for relative path.
+</I>&gt;<i> Pretty much like $ORIGIN does for RPATH.
+</I>I went ahead and imported what I did for the python patch into this current 
+project.
+On systems that implement a way to find the path of a specific binary, this 
+includes all already supported win32 targets as well as the usual known linux 
+variants at least, you should now be able to move the whole installed tree to 
+somewhere else and still find the management object model.
+
+What is not yet solved is the case where you build in your build tree but do 
+not install. This is the place where you probably want to run the test suite 
+without installing it. Not sure what is the best solution for this.
+
+Greetings
+
+Mathias 
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000055.html">[Openrti-devel] Avoid installing file to an Absolute location
+</A></li>
+	<LI>Next message: <A HREF="000057.html">[Openrti-devel] Merry Christmas ...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

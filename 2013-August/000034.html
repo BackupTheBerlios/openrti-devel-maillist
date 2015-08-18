@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Invalid Federate Handle received
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-August/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Invalid%20Federate%20Handle%20received&In-Reply-To=%3C1948383.9Srg9rNj9t%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000033.html">
+   <LINK REL="Next"  HREF="000035.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Invalid Federate Handle received</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Invalid%20Federate%20Handle%20received&In-Reply-To=%3C1948383.9Srg9rNj9t%40notebook%3E"
+       TITLE="[Openrti-devel] Invalid Federate Handle received">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Wed Aug  7 07:59:29 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000033.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+        <LI>Next message: <A HREF="000035.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Monday, August 05, 2013 11:18:20 COULON Jeremy wrote:
+&gt;<i> &gt; There was a more or less obvious bug in handle decoding.
+</I>&gt;<i> &gt; A fix for this one is noch checked in into the release branch.
+</I>&gt;<i> &gt; Does this help?
+</I>&gt;<i> 
+</I>&gt;<i> Yes it solves my problem. Thanks.
+</I>Thanks.
+
+&gt;<i> The next problem is:
+</I>&gt;<i> - if I start my 1st federate (fed1) that subscribes to HLAfederate objects
+</I>&gt;<i> and then I start my 2nd federate (fed2) that publish it, it works - if I
+</I>&gt;<i> start fed2 and then fed1, fed1 only receives a discoverObjectInstance
+</I>&gt;<i> callback but no reflectAttributeValues. As far as I understand I should
+</I>&gt;<i> implement the provideAttributeValueUpdate callback in fed2
+</I>&gt;<i> FederateAmbassador. However this callback is never called.
+</I>Can you provide a complete test case? Something that I can easily use to 
+reproduce?
+
+&gt;<i> &gt; OpenRTI lacks up to now more basic things than that.
+</I>&gt;<i> 
+</I>&gt;<i> Is the problem I am facing one of the &quot;basic things&quot; that your are talking
+</I>&gt;<i> about ? I have to create a new project using HLA for my company. I need to
+</I>&gt;<i> know the limitations of the different opensource RTI implementations. I
+</I>&gt;<i> tried Portico RTI but I found some serious blocking bugs, so I am trying
+</I>&gt;<i> your implementation. Can you tell me what basic things are missing from
+</I>&gt;<i> OpenRTI ?
+</I>
+Ownership management, regions and message delivery/subscription combined with 
+regions, the advisory switches and save and restore are not implemented as of 
+today. Then a lot of specialities of rti1516e are missing in the server 
+backend. That will come, but I do not have a time estimate for that.
+
+Greetings
+
+Mathias
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000033.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+	<LI>Next message: <A HREF="000035.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

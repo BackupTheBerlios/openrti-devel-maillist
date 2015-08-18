@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-July/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Assertion%20in%20OpenRTI%3A%3ABuffer%3A%3Aoperator%3D%3D&In-Reply-To=%3C1517191.pp0Gp7Ca2a%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000026.html">
+   <LINK REL="Next"  HREF="000028.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Assertion in OpenRTI::Buffer::operator==</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Assertion%20in%20OpenRTI%3A%3ABuffer%3A%3Aoperator%3D%3D&In-Reply-To=%3C1517191.pp0Gp7Ca2a%40notebook%3E"
+       TITLE="[Openrti-devel] Assertion in OpenRTI::Buffer::operator==">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Tue Jul 30 23:31:41 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000026.html">[Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+</A></li>
+        <LI>Next message: <A HREF="000028.html">[Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#27">[ date ]</a>
+              <a href="thread.html#27">[ thread ]</a>
+              <a href="subject.html#27">[ subject ]</a>
+              <a href="author.html#27">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Tuesday, July 30, 2013 10:55:34 Mathias Fr&#246;hlich wrote:
+&gt;<i> On Monday, July 29, 2013 17:17:01 COULON Jeremy wrote:
+</I>&gt;<i> &gt; As I couldn't find much documentation, I found a project that seems nice
+</I>&gt;<i> &gt; with a basic application skeleton here :
+</I>&gt;<i> &gt; <A HREF="https://github.com/chiemseesurfer/ba-hla">https://github.com/chiemseesurfer/ba-hla</A>
+</I>&gt;<i> &gt; It works in release mode but an assertion is raised in debug so I suspect
+</I>&gt;<i> &gt; something wrong. &#171; list iterators incompatible &#187;
+</I>&gt;<i> &gt; in OpenRTI::Buffer::operator==
+</I>&gt;<i> &gt; while calling rtiamb-&gt;createFederationExecution(L&#171;ExampleFederation &#187;,
+</I>&gt;<i> &gt; convertStringToWstring(fom)) ; // ExampleCPPFederate.cpp :88
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; I am using VisualStudio 2012 on Windows7.
+</I>&gt;<i> 
+</I>&gt;<i> Hmm, I tried to reproduce this problem. But without luck so far.
+</I>&gt;<i> I assume that you use a modified version of ba-hla? The unmodified version
+</I>&gt;<i> does not work at all here. Which are the modifications?
+</I>&gt;<i> Do you run 32 bit's or 64 bits?
+</I>&gt;<i> May be you can help me with a more detailed backtrace?
+</I>Ok, I could seen now this assert.
+I did not recognize the msvc version.
+
+I pushed a change for that on the release branch as well as on the master 
+branch.
+Does this fix your observed problem?
+
+Greetings
+
+Mathias
+
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000026.html">[Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+</A></li>
+	<LI>Next message: <A HREF="000028.html">[Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#27">[ date ]</a>
+              <a href="thread.html#27">[ thread ]</a>
+              <a href="subject.html#27">[ subject ]</a>
+              <a href="author.html#27">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

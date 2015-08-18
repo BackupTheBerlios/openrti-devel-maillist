@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Bug in HLAfixedRecord.cpp
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-October/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Bug%20in%20HLAfixedRecord.cpp&In-Reply-To=%3C3224434.msLQRpKbeS%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Bug in HLAfixedRecord.cpp</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Bug%20in%20HLAfixedRecord.cpp&In-Reply-To=%3C3224434.msLQRpKbeS%40notebook%3E"
+       TITLE="[Openrti-devel] Bug in HLAfixedRecord.cpp">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Thu Oct  3 10:03:23 CEST 2013</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#42">[ date ]</a>
+              <a href="thread.html#42">[ thread ]</a>
+              <a href="subject.html#42">[ subject ]</a>
+              <a href="author.html#42">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Thursday, September 26, 2013 10:08:39 COULON Jeremy wrote:
+&gt;<i> I am using OpenRTI version 204b15a1cfe (on branch release-0.4).
+</I>&gt;<i> I just found a bug in src/rti1516e/HLAfixedRecord.cpp :
+</I>&gt;<i> 
+</I>&gt;<i> for (DataElementVector ::const_iterator i = _dataElementVector.end() ; i =
+</I>&gt;<i> _dataElementVector.begin() ; ++i) { [...]
+</I>&gt;<i> }
+</I>&gt;<i> 
+</I>&gt;<i> Obviously this piece of code is wrong. Your iterator should go from begin()
+</I>&gt;<i> to end(). This bug is repeated many times in the same  file (copy/paste
+</I>&gt;<i> ?!). I did not check other files to see if this bug is there too.
+</I>
+Back from a short holiday trip...
+
+I think I have cought all of these.
+Thanks, applied!
+
+Mathias
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#42">[ date ]</a>
+              <a href="thread.html#42">[ thread ]</a>
+              <a href="subject.html#42">[ subject ]</a>
+              <a href="author.html#42">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

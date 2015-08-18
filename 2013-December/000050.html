@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-December/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20%5Brti1516e%5D%20Bug%20in%20BasicDataElements%20decoding&In-Reply-To=%3C2507644.BloT9BiTqM%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000049.html">
+   <LINK REL="Next"  HREF="000053.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20%5Brti1516e%5D%20Bug%20in%20BasicDataElements%20decoding&In-Reply-To=%3C2507644.BloT9BiTqM%40notebook%3E"
+       TITLE="[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Sat Dec  7 10:55:23 CET 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000049.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+        <LI>Next message: <A HREF="000053.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+glad to see this!
+
+On Thursday, December 05, 2013 23:59:21 J&#233;r&#233;my Coulon wrote:
+&gt;<i> Le 01/12/2013 13:13, Mathias Fr&#246;hlich a &#233;crit :
+</I>&gt;<i> &gt; Do you plan to change the encoding test then?
+</I>&gt;<i> 
+</I>&gt;<i> Here is a second version of the encoding test.
+</I>Thank you!
+
+&gt;<i> Note that the test is failing for HLAunicodeChar on the following
+</I>&gt;<i> platform: x86_64 Linux gcc4.8
+</I>&gt;<i> I did not have time to see why.
+</I>
+That's the same reason with the wchar_t range. You are using testInt() that 
+generates a random number between 0 and numeric_limits&lt;wchar_t&gt;::max() which 
+is beyond the range of what the HLA standard is able to encode into this 
+windows style unicode character that the HLA standard assumes.
+
+May be routing the to be tested limits up through testInt arguments helps 
+there.
+
+Thanks for changing the random number generators.
+
+Greetings
+
+Mathias
+</PRE>
+
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000049.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+	<LI>Next message: <A HREF="000053.html">[Openrti-devel] [rti1516e] Bug in BasicDataElements decoding
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

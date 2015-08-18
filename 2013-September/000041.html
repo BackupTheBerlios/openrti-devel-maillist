@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Bug in HLAfixedRecord.cpp
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-September/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Bug%20in%20HLAfixedRecord.cpp&In-Reply-To=%3C7807_1380182926_5243EB89_7807_31_1_56A795D572B90B429FFA7D547B6030D306407A67F1%40THSONEA01CMS06P.one.grp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000040.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Bug in HLAfixedRecord.cpp</H1>
+    <B>COULON Jeremy</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Bug%20in%20HLAfixedRecord.cpp&In-Reply-To=%3C7807_1380182926_5243EB89_7807_31_1_56A795D572B90B429FFA7D547B6030D306407A67F1%40THSONEA01CMS06P.one.grp%3E"
+       TITLE="[Openrti-devel] Bug in HLAfixedRecord.cpp">jeremy.coulon at thalesgroup.com
+       </A><BR>
+    <I>Thu Sep 26 10:08:39 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000040.html">[Openrti-devel] Massive updates of attributes over network
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#41">[ date ]</a>
+              <a href="thread.html#41">[ thread ]</a>
+              <a href="subject.html#41">[ subject ]</a>
+              <a href="author.html#41">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I am using OpenRTI version 204b15a1cfe (on branch release-0.4).
+I just found a bug in src/rti1516e/HLAfixedRecord.cpp :
+
+for (DataElementVector ::const_iterator i = _dataElementVector.end() ; i = _dataElementVector.begin() ; ++i) {
+[...]
+}
+
+Obviously this piece of code is wrong. Your iterator should go from begin() to end().
+This bug is repeated many times in the same  file (copy/paste ?!).
+I did not check other files to see if this bug is there too.
+
+Regards,
+J&#233;r&#233;my
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openrti-devel/attachments/20130926/4842fbac/attachment.html">https://lists.berlios.de/pipermail/openrti-devel/attachments/20130926/4842fbac/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000040.html">[Openrti-devel] Massive updates of attributes over network
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#41">[ date ]</a>
+              <a href="thread.html#41">[ thread ]</a>
+              <a href="subject.html#41">[ subject ]</a>
+              <a href="author.html#41">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

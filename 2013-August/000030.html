@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Invalid Federate Handle received
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-August/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Invalid%20Federate%20Handle%20received&In-Reply-To=%3C6809_1375433830_51FB7466_6809_15543_4_56A795D572B90B429FFA7D547B6030D3063AEAEAA9%40THSONEA01CMS06P.one.grp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000032.html">
+   <LINK REL="Next"  HREF="000031.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Invalid Federate Handle received</H1>
+    <B>COULON Jeremy</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Invalid%20Federate%20Handle%20received&In-Reply-To=%3C6809_1375433830_51FB7466_6809_15543_4_56A795D572B90B429FFA7D547B6030D3063AEAEAA9%40THSONEA01CMS06P.one.grp%3E"
+       TITLE="[Openrti-devel] Invalid Federate Handle received">jeremy.coulon at thalesgroup.com
+       </A><BR>
+    <I>Fri Aug  2 10:57:09 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000032.html">[Openrti-devel] NullFederateAmbassador compilation error
+</A></li>
+        <LI>Next message: <A HREF="000031.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#30">[ date ]</a>
+              <a href="thread.html#30">[ thread ]</a>
+              <a href="subject.html#30">[ subject ]</a>
+              <a href="author.html#30">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>(I think I sent this mail to the wrong mailing list, so I resend it here. Sorry if you receive it twice)
+
+Hello,
+
+I am trying to publish an object of type HLAfederate (HLAstandardMIM.xml).
+Semantics is unclear. I am not sure if the publication of these objects should be automatically handled by OpenRTI or if each federate should publish its own HLAfederate object. What is your interpretation ?
+
+As OpenRTI does not seem to do it I tried to publish it myself.
+My problem is when I receive the object and try to decode it, I get an invalid FederateHandle.
+
+Here is the code that publish the object :
+
+void HLAController::createHLAFederate()
+
+{
+         BOOST_LOG_TRIVIAL(debug) &lt;&lt; &quot;Register new HLAfederate object&quot;;
+         rti1516e::ObjectInstanceHandle hlaFederateHandle = rtiAmb_-&gt;registerObjectInstance(hlaFederateClassHandle_);
+
+         rti1516e::AttributeHandleValueMap attributeMap;
+         attributeMap[hlaFederateHandleAttributeHandle_] = myFederateHandle_.encode();
+         hlaFederateNameEncoder_.set(myFederateName_);
+         attributeMap[hlaFederateNameAttributeHandle_] = hlaFederateNameEncoder_.encode();
+
+         BOOST_LOG_TRIVIAL(debug) &lt;&lt; &quot;FederateHandle: &quot; &lt;&lt; myFederateHandle_.toString();
+         BOOST_LOG_TRIVIAL(debug) &lt;&lt; &quot;FederateName: &quot; &lt;&lt; myFederateName_;
+
+         BOOST_LOG_TRIVIAL(debug) &lt;&lt; &quot;Update attributes of HLAfederate object&quot;;
+         rtiAmb_-&gt;updateAttributeValues(hlaFederateHandle, attributeMap, rti1516e::VariableLengthData());
+
+}
+
+Console logs are :
+[2013-08-01 18:43:36.730779] [0x00001adc] [debug]   Register new HLAfederate object
+[2013-08-01 18:43:36.730779] [0x00001adc] [debug]   FederateHandle: FederateHandle(FederateHandle(1))
+[2013-08-01 18:43:36.730779] [0x00001adc] [debug]   FederateName: Slave0
+[2013-08-01 18:43:36.730779] [0x00001adc] [debug]   Update attributes of HLAfederate object
+
+Here is the code that receive the attribute values :
+
+void HLAController::reflectAttributeValues(
+
+         rti1516e::ObjectInstanceHandle theObject,
+
+         rti1516e::AttributeHandleValueMap const &amp; theAttributeValues,
+
+         rti1516e::VariableLengthData const &amp; theUserSuppliedTag,
+
+         rti1516e::OrderType sentOrder,
+
+         rti1516e::TransportationType theType,
+
+         rti1516e::SupplementalReflectInfo theReflectInfo)
+
+{
+
+         BOOST_LOG_TRIVIAL(debug) &lt;&lt; &quot;Reflect attribute values&quot;;
+
+         rti1516e::ObjectClassHandle classHandle = rtiAmb_-&gt;getKnownObjectClassHandle(theObject);
+
+         if (classHandle == hlaFederateClassHandle_)
+
+         {
+
+                  rti1516e::AttributeHandleValueMap::const_iterator itHandle = theAttributeValues.find(hlaFederateHandleAttributeHandle_);
+
+                  rti1516e::AttributeHandleValueMap::const_iterator itName = theAttributeValues.find(hlaFederateNameAttributeHandle_);
+
+                 if (itHandle != theAttributeValues.end() &amp;&amp; itName != theAttributeValues.end())
+
+                 {
+
+
+
+                          rti1516e::FederateHandle federateHandle = rtiAmb_-&gt;decodeFederateHandle(itHandle-&gt;second);
+
+                          hlaFederateNameEncoder_.decode(itName-&gt;second);
+
+                          std::wstring federateName = hlaFederateNameEncoder_.get();
+
+                          BOOST_LOG_TRIVIAL(debug) &lt;&lt; &quot;FederateHandle: &quot; &lt;&lt; federateHandle.toString();
+
+                          BOOST_LOG_TRIVIAL(debug) &lt;&lt; &quot;FederateName: &quot; &lt;&lt; federateName;
+
+                 }
+
+                 else
+
+                 {
+
+                          BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Some HLAfederate attributes not available&quot;;
+
+                 }
+
+         }
+
+}
+
+Console logs are :
+[2013-08-01 18:43:36.730779] [0x00002568] [debug]   Reflect attribute values
+[2013-08-01 18:43:36.730779] [0x00002568] [debug]   FederateHandle: FederateHandle(Invalid)
+[2013-08-01 18:43:36.730779] [0x00002568] [debug]   FederateName: Slave0
+
+
+
+Am I doing something wrong ?
+I tried to debug decodeFederateHandle() function. I looks like the input buffer contains the value '1' encoded as an unsigned integer. But I don't really understand all the Handle macro stuff.
+My platform is Windows7, Visual 2012, 32bits, IEEE-1516e with OpenRTI 0.4 release branch (commit 0908bb3&lt;<A HREF="http://gitorious.org/openrti/openrti/commit/0908bb33367738527c4ca72d2150040610c94825">http://gitorious.org/openrti/openrti/commit/0908bb33367738527c4ca72d2150040610c94825</A>&gt;).
+
+Regards,
+Jeremy
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openrti-devel/attachments/20130802/9d623bbf/attachment-0001.html">https://lists.berlios.de/pipermail/openrti-devel/attachments/20130802/9d623bbf/attachment-0001.html</A>&gt;
+</PRE>
+
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000032.html">[Openrti-devel] NullFederateAmbassador compilation error
+</A></li>
+	<LI>Next message: <A HREF="000031.html">[Openrti-devel] Invalid Federate Handle received
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#30">[ date ]</a>
+              <a href="thread.html#30">[ thread ]</a>
+              <a href="subject.html#30">[ subject ]</a>
+              <a href="author.html#30">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>

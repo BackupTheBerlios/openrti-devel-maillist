@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openrti-devel/2013-July/index.html" >
+   <LINK REL="made" HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Assertion%20in%20OpenRTI%3A%3ABuffer%3A%3Aoperator%3D%3D&In-Reply-To=%3C1809426.NFkmmhALJ3%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000025.html">
+   <LINK REL="Next"  HREF="000027.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openrti-devel] Assertion in OpenRTI::Buffer::operator==</H1>
+    <B>Mathias Fr&#246;hlich</B> 
+    <A HREF="mailto:openrti-devel%40lists.berlios.de?Subject=Re%3A%20%5BOpenrti-devel%5D%20Assertion%20in%20OpenRTI%3A%3ABuffer%3A%3Aoperator%3D%3D&In-Reply-To=%3C1809426.NFkmmhALJ3%40notebook%3E"
+       TITLE="[Openrti-devel] Assertion in OpenRTI::Buffer::operator==">Mathias.Froehlich at gmx.net
+       </A><BR>
+    <I>Tue Jul 30 10:55:34 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000025.html">[Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+</A></li>
+        <LI>Next message: <A HREF="000027.html">[Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+On Monday, July 29, 2013 17:17:01 COULON Jeremy wrote:
+&gt;<i> As I couldn't find much documentation, I found a project that seems nice
+</I>&gt;<i> with a basic application skeleton here :
+</I>&gt;<i> <A HREF="https://github.com/chiemseesurfer/ba-hla">https://github.com/chiemseesurfer/ba-hla</A>
+</I>&gt;<i> It works in release mode but an assertion is raised in debug so I suspect
+</I>&gt;<i> something wrong. &#171; list iterators incompatible &#187;
+</I>&gt;<i> in OpenRTI::Buffer::operator==
+</I>&gt;<i> while calling rtiamb-&gt;createFederationExecution(L&#171;ExampleFederation &#187;,
+</I>&gt;<i> convertStringToWstring(fom)) ; // ExampleCPPFederate.cpp :88
+</I>&gt;<i> 
+</I>&gt;<i> I am using VisualStudio 2012 on Windows7.
+</I>Hmm, I tried to reproduce this problem. But without luck so far.
+I assume that you use a modified version of ba-hla? The unmodified version does 
+not work at all here. Which are the modifications?
+Do you run 32 bit's or 64 bits?
+May be you can help me with a more detailed backtrace?
+
+&gt;<i> Ps : I also tried to launch QRTI but it crashed on startup.
+</I>That's possible. I should probably disable this for the releases completely. 
+That's in a state that I do not consider useful as of today.
+
+Thanks!
+
+Mathias
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000025.html">[Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+</A></li>
+	<LI>Next message: <A HREF="000027.html">[Openrti-devel] Assertion in OpenRTI::Buffer::operator==
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openrti-devel">More information about the Openrti-devel
+mailing list</a><br>
+</body></html>
